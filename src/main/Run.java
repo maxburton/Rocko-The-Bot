@@ -6,16 +6,18 @@ import main.GameFunctions.Choice;
 
 public class Run {
 
-	static void main(String[] args){
+	public static void main(String[] args){
 		Scanner s = new Scanner(System.in);
 		boolean playing = true;
 		while(playing) {
-			System.out.println("Choose a play: 1. Rock, 2. Paper, 3. Scissors, 0. Quit\n");
+			System.out.println("Choose a play: 1. Rock, 2. Paper, 3. Scissors, 0. Quit");
 			String input = s.nextLine();
 			int play = -1;
-			Choice choice = Choice.ROCK;;
-			if(input != "1" || input != "2" || input != "3" || input != "0") {
+			Choice choice = null;
+			input = input.trim();
+			if(input.equals("1") || input.equals("2") || input.equals("3") || input.equals("0")) {
 				play = Integer.parseInt(input);
+				System.out.println(play);
 			}else {
 				System.out.println("Invalid Input\n");
 				continue;
@@ -38,8 +40,9 @@ public class Run {
 				choice = Choice.ROCK;
 				break;
 			}
-			Choice botChoice = Prediction.choosePlay();
+			Choice botChoice = Choice.ROCK; //Prediction.choosePlay();
 			System.out.println(GameFunctions.getResult(choice, botChoice).toString());
+			Prediction.recordUserPlay(choice);
 		}
 		s.close();
 	}
